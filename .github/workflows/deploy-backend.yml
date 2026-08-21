@@ -92,7 +92,6 @@ jobs:
             --min-instances=1
             --max-instances=10
           env_vars: |
-            PORT=4000
             MONGODB_URI=${{ secrets.MONGODB_URI }}
             MONGODB_DB_NAME=${{ secrets.MONGODB_DB_NAME }}
             JWT_SECRET=${{ secrets.JWT_SECRET }}
