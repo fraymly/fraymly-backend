@@ -65,6 +65,7 @@ jobs:
             --max-instances=5
           env_vars: |
             OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
+            HF_TOKEN=${{ secrets.HF_TOKEN }}
             WHISPER_MODEL=large-v3-turbo
 
       # --- 2. DEPLOY NODE.JS API BACKEND ---
