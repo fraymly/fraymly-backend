@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+openai
+faster-whisper
+pyannote.audio
+scenedetect
+mediapipe
+opencv-python
+ultralytics
+transformers
+torch
+torchvision
+pillow
+sentencepiece>=0.2.0

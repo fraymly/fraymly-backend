@@ -1,0 +1,54 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+
+# AI Service Caches & ML Models
+ai-service/model_cache/
+ai-service/*.pt
+*.pt
+
+# Uploads and temporary media
+uploads/
+/uploads/
+/tmp/
+rendered_clip_*
+caption_test_result.mp4
+test_chunk_18_34.wav
+extracted_audio_pan_test.wav
+test_wav_vs_mp4.py
+test_pan_filter.py
+test_whisper_transcription.py
+test_with_vad.py
+test_chunk_transcription.py
