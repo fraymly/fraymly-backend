@@ -10,7 +10,7 @@ from huggingface_hub import get_token
 token = os.getenv("HF_TOKEN") or get_token()
 
 MODEL_CACHE_DIR = os.getenv("MODEL_CACHE_DIR", os.path.join(os.getcwd(), "model_cache"))
-compute_type = "int8" if platform.system() == "Darwin" else "int8_float16"
+compute_type = "int8"
 
 _whisper_model = None
 _pyannote_pipeline = None
