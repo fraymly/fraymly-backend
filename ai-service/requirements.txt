@@ -12,3 +12,4 @@ torch
 torchvision
 pillow
 sentencepiece>=0.2.0
+soundfile
