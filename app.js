@@ -20,8 +20,30 @@ import internalRoutes from './services/internal.routes.js'
 export function createApp() {
   const app = express()
 
+  // Dynamic CORS configuration to allow local dev and production custom domains seamlessly
+  const allowedOrigins = [
+    env.clientOrigin,
+    'https://www.fraymly.com',
+    'https://fraymly.com',
+    'http://localhost:5173'
+  ].filter(Boolean)
+
   app.use(cors({
-    origin: env.clientOrigin,
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps, curl, or server-to-server calls)
+      if (!origin) return callback(null, true)
+
+      const isAllowed = allowedOrigins.some(allowed => {
+        if (allowed === '*') return true
+        return allowed === origin || origin.endsWith('.fraymly.com')
+      })
+
+      if (isAllowed) {
+        callback(null, true)
+      } else {
+        callback(null, false) // Fail gracefully instead of crashing
+      }
+    },
     credentials: true,
   }))
 
