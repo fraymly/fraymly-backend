@@ -99,4 +99,4 @@ jobs:
             GCS_BUCKET_NAME=${{ secrets.GCS_BUCKET_NAME }}
             STORAGE_DRIVER=gcs
             AI_SERVICE_URL=${{ steps.deploy-ai.outputs.url || 'https://fraymly-ai-service-dummy-url' }}
-            API_URL=https://fraymly-api-backend-dummy-url/api/internal
+            API_URL=${{ secrets.API_URL }} || https://api.fraymly.com/api/internal
