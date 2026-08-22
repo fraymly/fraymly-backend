@@ -78,6 +78,44 @@ export async function getDownloadUrl(storagePath) {
 }
 
 /**
+ * Generates a signed upload URL for uploading files directly to Google Cloud Storage.
+ * @param {string} fileName - The name of the file being uploaded.
+ * @param {string} contentType - The MIME type of the file.
+ * @returns {Promise<{signedUrl: string, storagePath: string, fileName: string} | null>}
+ */
+export async function getUploadUrl(fileName, contentType) {
+  const driver = getDriver()
+
+  if (driver === 'gcs') {
+    const bucketName = env.gcsBucketName
+    const uniqueFileName = `${Date.now()}-${fileName.replace(/[^a-zA-Z0-9._-]+/g, '_')}`
+    const destination = `uploads/videos/${uniqueFileName}`
+
+    try {
+      const [signedUrl] = await storage
+        .bucket(bucketName)
+        .file(destination)
+        .getSignedUrl({
+          version: 'v4',
+          action: 'write',
+          expires: Date.now() + 30 * 60 * 1000, // 30 minutes
+          contentType,
+        })
+      return {
+        signedUrl,
+        storagePath: `gs://${bucketName}/${destination}`,
+        fileName: uniqueFileName,
+      }
+    } catch (err) {
+      console.warn("Failed to generate signed upload URL (falling back to standard local upload):", err.message)
+      return null
+    }
+  }
+
+  return null
+}
+
+/**
  * Gets a read stream for a file from GCS along with size and content-type.
  * @param {string} storagePath
  * @param {object} options - Options passed to createReadStream (e.g. { start, end })

@@ -11,6 +11,7 @@ router.use(requireAuth)
 
 // Project routes
 router.get('/', projectController.listProjects)
+router.post('/signed-upload-url', projectController.requestSignedUploadUrl)
 router.post('/', uploadVideo.single('video'), projectController.createProject)
 router.get('/:projectId', projectController.getProject)
 router.patch('/:projectId', projectController.updateProject)

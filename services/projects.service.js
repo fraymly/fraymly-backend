@@ -17,10 +17,10 @@ import { commitFile } from './storage.service.js'
 
 import { unlink } from 'node:fs/promises'
 
-export async function createWorkspaceProject({ ownerId, name, description, file }) {
+export async function createWorkspaceProject({ ownerId, name, description, file, directVideo }) {
   const project = await createProject({
     ownerId,
-    name: name ?? file?.originalname.replace(/\.[^.]+$/, ''),
+    name: name ?? file?.originalname.replace(/\.[^.]+$/, '') ?? directVideo?.originalName.replace(/\.[^.]+$/, ''),
     description: description ?? '',
     status: 'processing',
   })
@@ -40,6 +40,18 @@ export async function createWorkspaceProject({ ownerId, name, description, file 
     })
     
     await unlink(file.path).catch(() => {})
+    await updateProject(project._id, { sourceVideoId: video._id })
+  } else if (directVideo) {
+    video = await createWorkspaceVideo({
+      ownerId,
+      projectId: project._id,
+      originalName: directVideo.originalName,
+      fileName: directVideo.fileName,
+      mimeType: directVideo.mimeType,
+      size: directVideo.size,
+      path: directVideo.storagePath,
+      status: 'uploaded',
+    })
     await updateProject(project._id, { sourceVideoId: video._id })
   }
 
