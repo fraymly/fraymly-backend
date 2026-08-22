@@ -107,8 +107,8 @@ export async function getUploadUrl(fileName, contentType) {
         fileName: uniqueFileName,
       }
     } catch (err) {
-      console.warn("Failed to generate signed upload URL (falling back to standard local upload):", err.message)
-      return null
+      console.error("Failed to generate signed GCS upload URL:", err)
+      throw new Error(`Failed to generate signed GCS upload URL: ${err.message}`)
     }
   }
 
