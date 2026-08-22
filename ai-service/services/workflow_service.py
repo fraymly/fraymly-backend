@@ -124,7 +124,7 @@ def execute_workflow(payload):
 
     print(f"Starting workflow run {run_id}.", flush=True)
 
-    local_video_path = download_if_url(video.get("url") or video.get("path"))
+    local_video_path = download_if_url(video.get("path") or video.get("url"))
 
     user_types = [n.get("type") for n in workflow.get("nodes", [])]
     
